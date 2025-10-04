@@ -1,0 +1,563 @@
+{
+	"nav": {
+		"logoAlt": "Your Company",
+		"openMenu": "Open main menu",
+		"promo": {
+			"beforeStar": "Free Course",
+			"afterStar": "Sale Ends Soon, Get It Now"
+		},
+		"menu": {
+			"home": "Home",
+			"courses": "Courses",
+			"myCourses": "My Courses",
+			"about": "About Us",
+			"pricing": "Pricing",
+			"contact": "Contact",
+			"wishlist": "Wishlist"
+		},
+		"auth": {
+			"signup": "Sign Up",
+			"login": "Login",
+			"logout": "Logout",
+			"welcome": "Welcome, {{name}}"
+		},
+		"language": {
+			"short": {
+				"en": "EN",
+				"ar": "AR"
+			},
+			"switchToArabic": "Switch to Arabic",
+			"switchToEnglish": "Switch to English"
+		}
+	},
+	"navbar": {
+		"home": "Home",
+		"courses": "Courses",
+		"my courses": "My Courses",
+		"about": "About Us",
+		"pricing": "Pricing",
+		"contact": "Contact",
+		"signup": "Sign Up",
+		"login": "Login"
+	},
+	"hero": {
+		"headline": "Unlock Your Creative potential",
+		"subline": "with Online Design and Development Courses.",
+		"desc": "Learn from Industry Experts and Enhance Your Skills.",
+		"explore": "Explore Courses",
+		"pricing": "View Pricing"
+	},
+	"benefits": {
+		"title": "Benefits",
+		"subtitle": "Learn from industry experts and enhance your skills.",
+		"items": {
+			"1": "Flexible Learning Schedule",
+			"2": "Expert Instruction",
+			"3": "Diverse Course Offerings",
+			"4": "Updated Curriculum",
+			"5": "Practical Projects and Assignments",
+			"6": "Interactive Learning Environment"
+		}
+	},
+	"testimonials": {
+		"title": "Our Testimonials",
+		"desc": "Lorem ipsum dolor sit amet consectetur. Tempus tincidunt etiam eget elit id imperdiet et.",
+		"read": "Read Full Story"
+	},
+	"pricing": {
+		"title": "Our Pricing",
+		"desc": "Lorem ipsum dolor sit amet consectetur. Tempus tincidunt etiam eget elit id imperdiet et.",
+		"monthly": "Monthly",
+		"yearly": "Yearly",
+		"free": "Free Plan",
+		"pro": "Pro Plan",
+		"month": "/month",
+		"features": "Available Features",
+		"get": "Get Started"
+	},
+
+	"auth": {
+		"login": {
+			"title": "Login",
+			"welcome": "Welcome back! Please log in to access your account.",
+			"email": "Email",
+			"emailPh": "Enter your email",
+			"password": "Password",
+			"passwordPh": "Enter your password",
+			"remember": "Remember me",
+			"forgot": "Forgot password?",
+			"cta": "Login",
+			"or": "OR",
+			"google": "Login with Google",
+			"noAccount": "Don't have an account?",
+			"signup": "Sign up"
+		},
+		"messages": {
+			"enterEmailPass": "Please enter email and password.",
+			"fixErrors": "Please fix the errors first.",
+			"loggedIn": "Logged in successfully!",
+			"forgotNeedEmail": "Please enter a valid email to receive the reset link.",
+			"resetSent": "Password reset email sent."
+		},
+		"validation": {
+			"emailRequired": "Email is required",
+			"emailInvalid": "Invalid email format",
+			"passRequired": "Password is required",
+			"passMin": "Password must be at least 6 characters"
+		},
+
+		"Testimonials": {
+			"StudentsTestimonials": "StudentsTestimonials",
+			"readFullStory": "readFullStory",
+			"desc": "The web design course provided a solid foundation for me. The instructors were knowledgeable and supportive, and the interactive learning environment was engaging. I highly recommend it!",
+			"name": "Sarah L"
+		},
+
+		"register": {
+			"title": "Register",
+			"name": "Your Name",
+			"namePh": "Enter your name",
+			"welcome": "Create your account to get started.",
+			"email": "Email",
+			"emailPh": "Enter your email",
+			"password": "Password",
+			"passwordPh": "Enter your password",
+			"repass": "Confirm Password",
+			"repassPh": "Re-enter your password",
+			"remember": "Remember me",
+			"forgot": "Forgot password?",
+			"cta": "Sign Up",
+			"or": "OR",
+			"google": "Sign up with Google",
+			"noAccount": "Don't have an account?",
+			"signup": "Create Account",
+			"Role": "User Role",
+			"student": "Student",
+			"instructor": "Instructor",
+			"Admin ID": "Admin Code",
+			"Admin ID ph": "Enter admin code",
+			"already": "Already have an account?",
+			"login": "Login"
+		}
+	},
+
+	"footer": {
+		"brand": {
+			"logoAlt": "Skillbridge Logo",
+			"name": "G3 React Team"
+		},
+		"contact": {
+			"email": "UpCourse-Developer@iti.com",
+			"phone": "+20 123 456 7890",
+			"location": "Minya, Egypt"
+		},
+		"sections": {
+			"home": {
+				"title": "Home",
+				"items": {
+					"benefits": "Benefits",
+					"courses": "Our Courses",
+					"testimonials": "Our Testimonials",
+					"faq": "Our FAQ"
+				}
+			},
+			"about": {
+				"title": "About Us",
+				"items": {
+					"company": "Company",
+					"careers": "Careers",
+					"press": "Press",
+					"news": "News"
+				}
+			},
+			"social": {
+				"title": "Social Profiles"
+			}
+		},
+		"copyright": "© {{year}} {{brand}}. All rights reserved."
+	},
+	"about_page": {
+		"header_title": "About Skillbridge",
+		"header_description": "Welcome to our platform, where we are passionate about empowering individuals to master the world of design and development. We offer a wide range of online courses designed to equip learners with the skills and knowledge needed to succeed in the ever-evolving digital landscape.",
+		"achievements_title": "Achievements",
+		"achievements_description": "Our commitment to excellence has led us to achieve significant milestones along our journey. Here are some of our notable achievements.",
+		"section_title": "Provide practical skills",
+		"section_paragraph": "We focus on delivering practical skills that are relevant to the current industry demands. Our courses are designed to equip learners with the knowledge and tools needed to excel in their chosen fields.",
+		"cta_title_highlight": "Together,",
+		"cta_title_main": " let's shape the future of digital innovation",
+		"cta_description": "Join us on this exciting learning journey and unlock your potential in design and development.",
+		"cta_button": "Join Now"
+	},
+	"contactPage": {
+		"header": {
+			"title": "Contact Us",
+			"paragraph": "Welcome to SkillBridge Pricing Plan page, where we offer two comprehensive options to cater to your needs: Free and Pro. We believe in providing flexible and affordable pricing options for our services. Whether an individual looking to enhance your skills or a business seeking professional development solutions, we have a plan that suits you. Explore our pricing options below and choose the one that best fits your requirements."
+		},
+		"form": {
+			"firstNameLabel": "First Name",
+			"firstNamePlaceholder": "Enter First Name",
+			"lastNameLabel": "Last Name",
+			"lastNamePlaceholder": "Enter Last Name",
+			"emailLabel": "Email",
+			"emailPlaceholder": "Enter your Email",
+			"phoneLabel": "Phone",
+			"phonePlaceholder": "Enter Phone Number",
+			"subjectLabel": "Subject",
+			"subjectPlaceholder": "Enter your Subject",
+			"messageLabel": "Message",
+			"messagePlaceholder": "Enter your Message here...",
+			"submitButton": "Send Your Message"
+		},
+		"validation": {
+			"fnameRequired": "First name is required",
+			"lnameRequired": "Last name is required",
+			"emailRequired": "Email is required",
+			"emailInvalid": "Invalid email address",
+			"phoneRequired": "Phone number is required",
+			"phoneInvalid": "Invalid phone number",
+			"subjectRequired": "Subject is required",
+			"messageRequired": "Message is required"
+		},
+		"sidebar": {
+			"emailAddress": "hello@skillbridge.com",
+			"phoneNumber": "+20 123 456 7890",
+			"location": "Some where in the world",
+			"socialTitle": "Social Profiles"
+		}
+	},
+
+	"wishlist": {
+		"title": "My Wishlist",
+		"loading": "Loading…",
+		"empty": {
+			"title": "Your Wishlist is Empty",
+			"subtitle": "You haven't saved any courses yet. Start exploring!",
+			"cta": "Browse Courses"
+		},
+		"card": {
+			"remove": "Remove"
+		},
+		"price": {
+			"currencySymbol": "$"
+		}
+	},
+
+	"courses": {
+		"title_all": "All Courses",
+		"title_cat": "Category: {{cat}}",
+		"title_search_suffix": "— Search: “{{q}}”",
+		"search": {
+			"placeholder": "Search courses…",
+			"clear_aria": "Clear search",
+			"filter_label": "Filter by category",
+			"all_option": "All"
+		},
+		"categories": {
+			"Programming": "Programming",
+			"Graphic Design": "Graphic Design",
+			"Social Media": "Social Media",
+			"Marketing": "Marketing",
+			"Ui/UX": "Ui/UX"
+		},
+		"card": {
+			"price_label": "Price:",
+			"show_content": "Show content",
+			"enroll": "Enroll"
+		},
+		"empty": {
+			"base": "No courses found",
+			"for_q": "for “{{q}}”",
+			"in_cat": "in {{cat}}"
+		}
+	},
+
+	"myCourses": {
+		"title": "My Courses",
+		"loading": "Loading your courses…",
+		"empty": {
+			"title": "My Courses",
+			"message": "No enrolled courses yet."
+		},
+		"price": {
+			"currencySymbol": "$"
+		},
+		"enrolled_on": "Enrolled on: "
+	},
+
+	"home": {
+		"hero": {
+			"title": "Unlock Your Creative potential",
+			"subtitle": "with Online Design and Development Courses.",
+			"learn_line": "Learn from Industry Experts and Enhance Your Skills.",
+			"cta_explore": "Explore Courses",
+			"cta_view_pricing": "view pricing"
+		},
+		"companies": {
+			"zapier": "zapier",
+			"spotify": "Spotify",
+			"zoom": "Zoom",
+			"amazon": "Amazon",
+			"adobe": "Adobe",
+			"notion": "Notion",
+			"netflix": "Netflix"
+		},
+		"video": {
+			"iframe_title": "YouTube video"
+		},
+		"benefits": {
+			"title": "Benefits",
+			"subtitle": "Learn from industry experts and enhance your skills.",
+			"items": [
+				{
+					"num": "01",
+					"title": "Flexible Learning Schedule",
+					"text": "Fit your coursework around your existing commitments."
+				},
+				{
+					"num": "02",
+					"title": "Expert Instruction",
+					"text": "Learn from industry experts with real-world experience."
+				},
+				{
+					"num": "03",
+					"title": "Diverse Course Offerings",
+					"text": "Explore a wide range of design and development courses."
+				},
+				{
+					"num": "04",
+					"title": "Updated Curriculum",
+					"text": "Access courses with up-to-date content reflecting the latest trends and industry practices."
+				},
+				{
+					"num": "05",
+					"title": "Practical Projects and Assignments",
+					"text": "Develop a portfolio showcasing your skills and abilities to potential employers."
+				},
+				{
+					"num": "06",
+					"title": "Interactive Learning Environment",
+					"text": "Collaborate with fellow learners, exchanging ideas and feedback to enhance your understanding."
+				}
+			]
+		},
+		"courses_section": {
+			"title": "Our Courses",
+			"subtitle": "Learn from industry experts and enhance your skills.",
+			"cards": [
+				{
+					"title": "Web Design Fundamentals",
+					"duration": "4 Weeks",
+					"level": "Beginner",
+					"instructor": "John Smith",
+					"description": "Learn the fundamentals of web design, including HTML, CSS, and responsive design principles.",
+					"buttonText": "Get it Now"
+				},
+				{
+					"title": "UI/UX Design",
+					"duration": "6 Weeks",
+					"level": "Intermediate",
+					"instructor": "Emily Johnson",
+					"description": "Master the art of creating intuitive user interfaces and enhancing user experiences.",
+					"buttonText": "Get it Now"
+				}
+			]
+		},
+		"testimonials": {
+			"title": "Our Testimonials",
+			"subtitle": "Lorem ipsum dolor sit amet consectetur. Tempus tincidunt etiam eget elit id imperdiet et.",
+			"items": [
+				{
+					"name": "Doha",
+					"text": "The web design course provided a solid foundation for me. The instructors were knowledgeable and supportive, and the interactive learning environment was engaging. I highly recommend it!"
+				},
+				{
+					"name": "Ahmed",
+					"text": "The UI/UX design course exceeded my expectations. The instructor’s expertise and practical assignments helped me improve my design skills. I feel more confident in my career now. Thank you!"
+				},
+				{
+					"name": "Hoda",
+					"text": "The mobile app development course was fantastic! The step-by-step tutorials and hands-on projects helped me grasp the concepts easily. I'm now building my own app. Great course!"
+				},
+				{
+					"name": "Abdulrhman",
+					"text": "I enrolled in the graphic design course as a beginner, and it was the perfect starting point. The instructor’s guidance and feedback improved my design abilities significantly. I'm grateful for this course!"
+				}
+			]
+		},
+		"pricing": {
+			"title": "Our Pricing",
+			"subtitle": "Lorem ipsum dolor sit amet consectetur. Tempus tincidunt etiam eget elit id imperdiet et.",
+			"toggle": {
+				"monthly": "Monthly",
+				"yearly": "Yearly"
+			},
+			"plans": {
+				"free": "Free Plan",
+				"pro": "Pro Plan"
+			},
+			"features": {
+				"freeFeatures": [
+					"Access to selected free courses.",
+					"Limited course materials and resources.",
+					"Basic community support.",
+					"No certification upon completion.",
+					"Ad-supported platform.",
+					"Access to exclusive Pro Plan community forums.",
+					"Early access to new courses and updates."
+				],
+				"proFeatures": [
+					"Unlimited access to all courses.",
+					"Unlimited course materials and resources.",
+					"Priority support from instructors.",
+					"Course completion certificates.",
+					"Ad-free experience.",
+					"Access to exclusive Pro Plan community forums.",
+					"Early access to new courses and updates."
+				]
+			}
+		}
+	},
+
+	"common": {
+		"loading": "Loading...",
+		"backToDashboard": "Back To Dashboard",
+		"savingEllipsis": "Saving ...",
+		"errorPrefix": "Error: {{message}}",
+		"companyAlt": "Your Company"
+	},
+	"sidebar": {
+		"home": "Home",
+		"courses": "Courses",
+		"students": "Students",
+		"settings": "Settings"
+	},
+	"header": {
+		"title": "Course Managment",
+		"addNew": "+ Add New Course"
+	},
+	"coursesTable": {
+		"headers": {
+			"image": "Image",
+			"courseName": "Course Name",
+			"price": "Price",
+			"description": "Description",
+			"actions": "Actions"
+		},
+		"empty": "Don't have any course yet."
+	},
+	"courseRow": {
+		"confirmDelete": "Are you sure you want to delete \"{{title}}\"?"
+	},
+	"addCourse": {
+		"title": "Add New Course",
+		"fields": {
+			"courseTitle": "Course Title",
+			"playlistId": "Playlist ID",
+			"description": "Description",
+			"priceUSD": "Price ($)",
+			"category": "Category",
+			"coverImage": "Cover Image"
+		},
+		"category": {
+			"choose": "Choose a category",
+			"programming": "Programming",
+			"graphicDesign": "Graphic Design",
+			"socialMedia": "Social Media",
+			"marketing": "Marketing",
+			"uiux": "Ui/UX"
+		},
+		"buttons": {
+			"submit": "Add Course"
+		},
+		"messages": {
+			"fillRequired": "Please fill all required fields.",
+			"success": "Course added successfully!"
+		}
+	},
+	"editCourse": {
+		"title": "Edit Course",
+		"notFound": "Course not found.",
+		"errorFetching": "Error fetching course data.",
+		"fields": {
+			"courseName": "Course Name",
+			"playlistId": "Playlist ID",
+			"description": "Description",
+			"priceUSD": "Price ($)",
+			"category": "Category"
+		},
+		"category": {
+			"choose": "Choose a category",
+			"programming": "Programming",
+			"graphicDesign": "Graphic Design",
+			"socialMedia": "Social Media",
+			"marketing": "Marketing",
+			"uiux": "Ui/UX"
+		},
+		"buttons": {
+			"save": "Saving Changes"
+		},
+		"messages": {
+			"success": "Course updated successfully.",
+			"error": "Error updating course."
+		}
+	},
+
+	"checkout": {
+		"empty": {
+			"title": "Course not found",
+			"subtitle": "Please select a course to continue with checkout."
+		},
+		"header": {
+			"title": "Complete Your Purchase",
+			"subtitle": "You're just one step away from accessing your course. Choose your preferred payment method below."
+		},
+		"summary": {
+			"title": "Course Summary",
+			"badge": "Premium Course",
+			"whatsIncluded": "What's included:",
+			"features": {
+				"lifetimeAccess": "Lifetime access to course materials",
+				"certificate": "Certificate of completion",
+				"multiDevice": "Mobile and desktop access",
+				"support247": "24/7 customer support"
+			}
+		},
+		"pricing": {
+			"coursePrice": "Course price:",
+			"platformFee": "Platform fee:",
+			"total": "Total:"
+		},
+		"payment": {
+			"title": "Payment Method",
+			"secure": {
+				"title": "Secure Payment",
+				"subtitle": "Your payment information is encrypted and secure"
+			},
+			"helper": "Pay securely with PayPal or your credit/debit card",
+			"termsNote": {
+				"prefix": "By completing your purchase, you agree to our",
+				"tos": "Terms of Service",
+				"and": "and",
+				"privacy": "Privacy Policy"
+			}
+		},
+		"trust": {
+			"ssl": "SSL Secured",
+			"moneyBack": "Money Back Guarantee",
+			"support247": "24/7 Support"
+		},
+		"alerts": {
+			"failed": "Payment failed. Please try again.",
+			"errorTitle": "PayPal Error"
+		}
+	},
+	"course": {
+		"price": {
+			"label": "Price:"
+		}
+	},
+	"currency": {
+		"symbol": "$"
+	},
+	" Enrolled on": "Enrolled on"
+}
