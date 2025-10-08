@@ -1,21 +1,24 @@
 import React from 'react';
-<<<<<<< HEAD
-import DrawerNavigator from './src/navigation/DrawerNavigator';
-
-export default function App() {
-  return <DrawerNavigator />;
-=======
-import { StyleSheet, Text, View } from 'react-native';
-import StackNavigator from './src/navigation/StackNavigator';
+import { StyleSheet, View } from 'react-native';
 import 'react-native-url-polyfill/auto';
-import "./src/localization/i18n";
+import './src/localization/i18n';
 
+// import navigators
+import DrawerNavigator from './src/navigation/DrawerNavigator';
+import StackNavigator from './src/navigation/StackNavigator';
 
 export default function App() {
+  const useDrawer = true;
+
   return (
-    
-    <StackNavigator />
-    
+    <View style={styles.container}>
+      {useDrawer ? <DrawerNavigator /> : <StackNavigator />}
+    </View>
   );
->>>>>>> main
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
