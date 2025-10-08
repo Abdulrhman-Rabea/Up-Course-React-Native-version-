@@ -19,7 +19,9 @@
 			"signup": "إنشاء حساب",
 			"login": "تسجيل الدخول",
 			"logout": "تسجيل الخروج",
-			"welcome": "مرحبًا، {{name}}"
+			"welcome": "مرحبًا، {{name}}",
+			"adminIdInvalid": "كود المسؤول الذي أدخلته غير صالح."
+
 		},
 		"language": {
 			"short": {

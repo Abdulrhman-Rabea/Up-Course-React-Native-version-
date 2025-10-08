@@ -17,12 +17,14 @@ import {
 } from "firebase/firestore";
 
 // Your web app's Firebase configuration
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC6bGGDpOwsoLi3zie8G3wYQg6nd5e0wjc",
-
+  // --- استخدم هذا المفتاح الصحيح ---
+  apiKey: "AIzaSyDUgH1CH5o6vHo5wMgeUgHAKKIUWgmVtao",
+  
   authDomain: "e-learning-35aa2.firebaseapp.com",
   projectId: "e-learning-35aa2",
-  storageBucket: "e-learning-35aa2.firebasestorage.app",
+  storageBucket: "e-learning-35aa2.appspot.com",
   messagingSenderId: "964443659733",
   appId: "1:964443659733:web:40b05999b373cd3315315c"
 };
