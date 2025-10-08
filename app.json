@@ -2,6 +2,9 @@
   "expo": {
     "name": "upcourse-ReactNativeVersion",
     "slug": "upcourse-ReactNativeVersion",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "plugins": [
+      "expo-video"
+    ]
   }
 }

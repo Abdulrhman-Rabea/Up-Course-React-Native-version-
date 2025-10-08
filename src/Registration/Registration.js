@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Text, TextInput, Button, Switch } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { signUpWithEmail, mapAuthError } from '../lib/auth'; // تأكد أن هذا المسار صحيح
+import { signUpWithEmail, mapAuthError } from '../lib/auth'; 
 import { getFirestore, doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 
@@ -71,7 +71,7 @@ function Registration() {
       setSubmitOk('Correct! Account created successfully.');
 
       setTimeout(() => {
-        const target = isAdmin ? 'AdminPage' : 'AddPage';
+        const target = isAdmin ? 'AdminPage' : 'Home';
         navigation.replace(target);
       }, 2000);
 

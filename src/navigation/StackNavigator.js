@@ -7,6 +7,9 @@ import AddCoursePage from "../AdminDashboard/AddPage";
 import AdminPage from "../AdminDashboard/Home";
 import Login from "../login/Login";
 import Registration from "../Registration/Registration";
+import HomeScreen from "../screens/HomeScreen";
+import Courses from "../AdminDashboard/Home";
+
 
 // يفضل تسمية المكون بحرف كبير في البداية
 function StackNavigator() {
@@ -17,6 +20,8 @@ function StackNavigator() {
       {/* Auth screens */}
       <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
       <Stack.Screen name="Registration" component={Registration} options={{ headerShown: false }} />
+      <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Courses" component={Courses} options={{ headerShown: false }} />
       {/* App/Admin screens */}
       <Stack.Screen
         name="AdminPage"

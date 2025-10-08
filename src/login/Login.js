@@ -62,7 +62,21 @@ function Login() {
     else if (!passRegex.test(value)) setErrors((p) => ({ ...p, passErr: t('auth.validation.passMin') }));
     else setErrors((p) => ({ ...p, passErr: '' }));
   };
-  const handleSubmit = async () => { /* Your original logic */ };
+  const handleSubmit = async () => {
+    try {
+      const user = await signInWithEmail({ email, password: pass, remember: rememberMe });
+      const userDoc = await getDoc(doc(getFirestore(), 'users', user.uid));
+      const userData = userDoc.data();
+      if (userData.role === 'admin') {
+        navigation.navigate('AdminPage');
+      } else {
+        navigation.navigate('HomeScreen');
+      }
+    } catch (error) {
+      showMessage({ text: 'Login failed', type: 'error' });
+    }
+  };
+  
   const handleGoogle = async () => { /* Your original logic */ };
   const onForgotPassword = async () => { /* Your original logic */ };
   const togglePasswordVisibility = () => setShowPassword((s) => !s);
