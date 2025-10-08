@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, Alert } from 'react-native';
 import { TextInput, Button, Text, HelperText, Menu, Provider } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
-import { supabase } from '../lib/supabaseClient'; // تأكد أن دعم expo-image-picker أو رفع الصور موجود
+import { supabase } from '../lib/supabaseClient'; 
 import { db } from '../lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
@@ -25,7 +25,6 @@ function AddCoursePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  // اختيار صورة من الجهاز
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
@@ -53,7 +52,7 @@ function AddCoursePage() {
     setMessage('');
 
     try {
-      // رفع الصورة إلى Supabase (يجب تحويل URI إلى ملف أو Blob حسب النظام)
+  
       const response = await fetch(imageUri);
       const blob = await response.blob();
       const filePath = `public/${Date.now()}-course-image.jpg`;
@@ -63,7 +62,7 @@ function AddCoursePage() {
 
       const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(filePath);
 
-      // إضافة بيانات الدورة إلى Firestore
+
       await addDoc(collection(db, 'courses'), {
         ownerUid: user.uid,
         ownerEmail: user.email ?? null,
