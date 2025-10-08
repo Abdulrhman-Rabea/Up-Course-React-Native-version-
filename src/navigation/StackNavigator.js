@@ -1,32 +1,34 @@
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AddCoursePage from "../AdminDashboard/AddPage";
-import AdminPage from "../AdminDashboard/Home";
+import AddCoursePage from "../AdminDashboard/pages/AddPage";
+import AdminPage from "../AdminDashboard/pages/Home";
 
-
+const Stack = createNativeStackNavigator();
 
 function StackNavigator() {
-  const Stack = createNativeStackNavigator();
   return (
     
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="AdminPage"
-          component={AdminPage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="AddPage"
-          component={AddCoursePage}
-          options={{ headerShown: false }}
-        />
-        
-
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={AdminPage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="AddPage"
+        component={AddCoursePage}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 }
+
 export default StackNavigator;
+
+
+
+
+
+
+
 
 
