@@ -15,7 +15,7 @@ export default function AdminPage() {
         paddingBottom: insets.bottom,
       }}
     >
-      {/* Appbar.Header يُعالج مناطق الأمان داخليًا، لكن يمكن تمرير safeAreaInsets */}
+    
       <Header />
       
       <ScrollView
