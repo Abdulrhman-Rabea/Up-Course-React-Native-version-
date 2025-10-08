@@ -40,6 +40,7 @@ export default function HomeScreen({ navigation }) {
         loadCourses();
     }, []);
 
+
     const player = useVideoPlayer('https://www.w3schools.com/html/mov_bbb.mp4', (player) => {
         player.loop = true;
         player.play();
