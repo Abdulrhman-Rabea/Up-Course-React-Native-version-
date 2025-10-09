@@ -30,7 +30,6 @@ function Registration() {
   const { t } = useTranslation();
   const db = getFirestore();
 
-  // ... (All your state and handler functions remain the same)
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -76,12 +75,8 @@ function Registration() {
       }, 2000);
 
     } catch (e) {
-      // --- THIS IS THE IMPORTANT CHANGE ---
-      // Instead of the generic message, we will display the technical error
       const technicalError = `Error Code: ${e.code}\nMessage: ${e.message}`;
       setSubmitErr(technicalError);
-      
-      // Also log it to the terminal just in case
       console.error("FIREBASE ERROR:", technicalError);
     } finally {
       setIsLoading(false);
@@ -94,7 +89,6 @@ function Registration() {
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.flex}>
       <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
         <View style={styles.card}>
-            {/* The rest of your JSX remains exactly the same... */}
             <Text style={styles.title}>Sign Up</Text>
             <Text style={styles.subtitle}>Create an account to unlock exclusive features.</Text>
             
@@ -139,7 +133,6 @@ function Registration() {
 }
 
 
-// Your styles remain the same...
 const styles = StyleSheet.create({
   flex: { flex: 1 },
   container: { flexGrow: 1, justifyContent: 'center', padding: 20, backgroundColor: '#F3F4F6' },
