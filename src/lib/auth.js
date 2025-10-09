@@ -14,10 +14,10 @@ export async function signUpWithEmail({ email, password, displayName }) {
     try {
         await sendEmailVerification(credintial.user);
     } catch (e) {
-
         console.warn("Failed to send verification email:", e);
     }
-    return credintial.user;
+
+    return credintial; 
 }
 
 

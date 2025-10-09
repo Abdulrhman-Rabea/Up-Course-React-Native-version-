@@ -53,6 +53,7 @@ function AddCoursePage() {
 
     try {
 
+
       const response = await fetch(imageUri);
       const blob = await response.blob();
       const filePath = `public/${Date.now()}-course-image.jpg`;

@@ -29,7 +29,7 @@ export default function CourseRow({ course, onDelete }) {
         <>
           <IconButton
             icon="pencil"
-            onPress={() => navigation.navigate("EditCourse", { id: course.id })}
+            onPress={() => navigation.navigate("Edit", { courseId: course.id })}
             accessibilityLabel={t("edit")}
           />
           <IconButton

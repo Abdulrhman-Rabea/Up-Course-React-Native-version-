@@ -9,7 +9,7 @@ export default function PrimaryButton({ children, onPress }) {
       style={{ borderRadius: 8 }}
       contentStyle={{ paddingVertical: 10 }}
       labelStyle={{ fontWeight: 'bold', fontSize: 16 }}
-      buttonColor="#f97316" // لون برتقالي مشابه لـ bg-orange-500
+      buttonColor="#f97316" 
     >
       {children}
     </Button>

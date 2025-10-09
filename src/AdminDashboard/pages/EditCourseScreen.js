@@ -12,6 +12,8 @@ import { Picker } from '@react-native-picker/picker';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { firestore } from '../../lib/firebase';
+import { db } from '../../lib/firebase';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 export default function EditCourseScreen() {
   const { t } = useTranslation();
   const route = useRoute();
@@ -22,25 +24,35 @@ export default function EditCourseScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    const fetchCourseData = async () => {
-      try {
-        const docSnap = await firestore().collection('courses').doc(courseId).get();
-        if (docSnap.exists) {
-          setCourseData(docSnap.data());
-        } else {
-          setMessage(t('editCourse.messages.notFound'));
-        }
-      } catch (error) {
-        console.error(error);
-        setMessage(t('editCourse.messages.fetchError'));
-      } finally {
+ useEffect(() => {
+  console.log('EditCourseScreen -> courseId:', courseId);
+  const fetchCourseData = async () => {
+    try {
+      if (!courseId) {
+        setMessage(t('editCourse.messages.notFound'));
         setIsLoading(false);
+        return;
       }
-    };
+      const ref = doc(db, 'courses', String(courseId)); // تأكد إنه String
+      console.log('Doc path:', `courses/${courseId}`);
 
-    fetchCourseData();
-  }, [courseId]);
+      const snap = await getDoc(ref);
+      console.log('doc.exists:', snap.exists());
+      if (snap.exists()) {
+        setCourseData(snap.data());
+      } else {
+        setMessage(t('editCourse.messages.notFound'));
+      }
+    } catch (error) {
+      console.error('fetchCourseData error:', error);
+      setMessage(t('editCourse.messages.fetchError'));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  fetchCourseData();
+}, [courseId]);
+
 
   const handleChange = (field, value) => {
     setCourseData(prev => ({ ...prev, [field]: value }));
@@ -49,7 +61,8 @@ export default function EditCourseScreen() {
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      await firestore().collection('courses').doc(courseId).update({
+      const courseRef = doc(db, 'courses', String(courseId));
+      await updateDoc(courseRef, {
         title: courseData.title,
         description: courseData.description,
         price: Number(courseData.price),
