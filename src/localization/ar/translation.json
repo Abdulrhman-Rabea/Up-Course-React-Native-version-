@@ -440,6 +440,10 @@
 			"description": "الوصف",
 			"actions": "الإجراءات"
 		},
+		"Go to course": "تعديل الدورة",
+		"Remove": "حذف",
+		"Confirm Deletion": "تاكيد الحذف",
+		"Are you sure you want to remove this course?": "هل تريد حذف هذه الدورة؟",
 		"empty": "لا توجد أي دورة حتى الآن."
 	},
 	"courseRow": {

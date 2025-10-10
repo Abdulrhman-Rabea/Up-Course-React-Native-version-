@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet, Alert } from 'react-native';
-import { TextInput, Button, Text, HelperText, Menu, Provider } from 'react-native-paper';
+import { View, ScrollView, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
+import { TextInput, Button, Text, Menu, Provider, Icon } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from '../../lib/supabaseClient';
 import { db } from '../../lib/firebase';
@@ -8,6 +8,18 @@ import { collection, addDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+const themeColors = {
+  primary: "#FF6F00",
+  secondary: "#F0F0F0",
+  text: "#333333",
+  textLight: "#FFFFFF",
+  border: "#DDDDDD",
+  success: "#28a745",
+  error: "#dc3545",
+  background: "#FFFFFF",
+};
 
 function AddCoursePage() {
   const { t } = useTranslation();
@@ -52,8 +64,6 @@ function AddCoursePage() {
     setMessage('');
 
     try {
-
-
       const response = await fetch(imageUri);
       const blob = await response.blob();
       const filePath = `public/${Date.now()}-course-image.jpg`;
@@ -62,7 +72,6 @@ function AddCoursePage() {
       if (uploadError) throw uploadError;
 
       const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(filePath);
-
 
       await addDoc(collection(db, 'courses'), {
         ownerUid: user.uid,
@@ -78,144 +87,223 @@ function AddCoursePage() {
 
       setMessage(t('addCourse.messages.success'));
       setIsLoading(false);
-      setTimeout(() => navigation.navigate('AdminPage'), 2000);
+      setTitle('');
+      setPlaylistId('');
+      setDescription('');
+      setPrice('');
+      setImageUri(null);
+      setCategory('');
+      setMessage('');
+      setTimeout(() => navigation.goBack(), 2000);
     } catch (error) {
-      setMessage(`${t('addCourse.messages.error')}: ${error.message}`);
+      setMessage(`${t('common.errorWord')}: ${error.message}`);
       setIsLoading(false);
     }
+  };
+  
+  const categories = ['Programming', 'Graphic Design', 'Social Media', 'Marketing', 'Ui/UX'];
+  const categoryTranslations = {
+    'Programming': t('addCourse.category.programming'),
+    'Graphic Design': t('addCourse.category.graphicDesign'),
+    'Social Media': t('addCourse.category.socialMedia'),
+    'Marketing': t('addCourse.category.marketing'),
+    'Ui/UX': t('addCourse.category.uiux')
   };
 
   return (
     <Provider>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.heading}>{t('addCourse.title')}</Text>
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+          <Text style={styles.heading}>{t('addCourse.title')}</Text>
 
-        <TextInput
-          label={t('addCourse.fields.courseTitle')}
-          value={title}
-          onChangeText={setTitle}
-          style={styles.input}
-          mode="outlined"
-        />
+          <TextInput
+            label={t('addCourse.fields.courseTitle')}
+            value={title}
+            onChangeText={setTitle}
+            style={styles.input}
+            mode="outlined"
+            activeOutlineColor={themeColors.primary}
+            textColor='black'
+          />
 
-        <TextInput
-          label={t('addCourse.fields.playlistId')}
-          value={playlistId}
-          onChangeText={setPlaylistId}
-          style={styles.input}
-          mode="outlined"
-        />
+          <TextInput
+            label={t('addCourse.fields.playlistId')}
+            value={playlistId}
+            onChangeText={setPlaylistId}
+            style={styles.input}
+            mode="outlined"
+            activeOutlineColor={themeColors.primary}
+            textColor='black'
+          />
 
-        <TextInput
-          label={t('addCourse.fields.description')}
-          value={description}
-          onChangeText={setDescription}
-          style={styles.input}
-          multiline
-          numberOfLines={4}
-          mode="outlined"
-        />
+          <TextInput
+            label={t('addCourse.fields.description')}
+            value={description}
+            onChangeText={setDescription}
+            style={styles.input}
+            multiline
+            numberOfLines={4}
+            mode="outlined"
+            activeOutlineColor={themeColors.primary}
+            textColor='black'
+          />
 
-        <TextInput
-          label={t('addCourse.fields.priceUSD')}
-          value={price}
-          onChangeText={setPrice}
-          keyboardType="numeric"
-          style={styles.input}
-          mode="outlined"
-        />
+          <TextInput
+            label={t('addCourse.fields.priceUSD')}
+            value={price}
+            onChangeText={setPrice}
+            keyboardType="numeric"
+            style={styles.input}
+            mode="outlined"
+            activeOutlineColor={themeColors.primary}
+            textColor='black'
+          />
 
-        <Menu
-          visible={menuVisible}
-          onDismiss={() => setMenuVisible(false)}
-          anchor={
-            <Button
-              mode="outlined"
-              onPress={() => setMenuVisible(true)}
-              style={[styles.input, { justifyContent: 'flex-start' }]}
-            >
-              {category || t('addCourse.category.choose')}
-            </Button>
-          }
-        >
-          {['Programming', 'Graphic Design', 'Social Media', 'Marketing', 'Ui/UX'].map(cat => (
-            <Menu.Item
-              key={cat}
-              onPress={() => {
-                setCategory(cat);
-                setMenuVisible(false);
-              }}
-              title={t(`addCourse.category.${cat.replace(/ /g, '').toLowerCase()}`)}
-            />
-          ))}
-        </Menu>
+          <Menu
+            visible={menuVisible}
+            onDismiss={() => setMenuVisible(false)}
+            anchor={
+              <TouchableOpacity style={styles.dropdown} onPress={() => setMenuVisible(true)}>
+                <Text style={styles.dropdownText}>
+                  {category ? categoryTranslations[category] : t('addCourse.category.choose')}
+                </Text>
+                <Icon source="chevron-down" size={24} color={themeColors.text} />
+              </TouchableOpacity>
+            }
+          >
+            {categories.map(cat => (
+              <Menu.Item
+                key={cat}
+                onPress={() => {
+                  setCategory(cat);
+                  setMenuVisible(false);
+                }}
+                title={categoryTranslations[cat]}
+              />
+            ))}
+          </Menu>
 
-        <Button
-          mode="contained"
-          onPress={pickImage}
-          style={styles.imageButton}
-        >
-          {imageUri ? t('addCourse.fields.changeCoverImage') : t('addCourse.fields.coverImage')}
-        </Button>
+          <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
+            {imageUri ? (
+              <Image source={{ uri: imageUri }} style={styles.imagePreview} />
+            ) : (
+              <>
+                <Icon source="image-plus" size={40} color={themeColors.primary} />
+                <Text style={styles.imagePickerText}>{t('addCourse.fields.coverImage')}</Text>
+              </>
+            )}
+          </TouchableOpacity>
 
-        {imageUri && (
-          <Text style={styles.imageUriText}>{imageUri}</Text>
-        )}
+           {message && (
+             <View style={[styles.messageContainer, message.includes(t('common.errorWord')) ? styles.errorContainer : styles.successContainer]}>
+                <Text style={styles.messageText}>{message}</Text>
+             </View>
+           )}
 
-        <Button
-          mode="contained"
-          onPress={handleSubmit}
-          loading={isLoading}
-          disabled={isLoading}
-          style={styles.submitButton}
-        >
-          {isLoading ? t('addCourse.buttons.saving') : t('addCourse.buttons.submit')}
-        </Button>
+          <Button
+            mode="contained"
+            onPress={handleSubmit}
+            loading={isLoading}
+            disabled={isLoading}
+            style={styles.submitButton}
+            labelStyle={styles.submitButtonText}
+            contentStyle={{ paddingVertical: 8 }}
+          >
+            {isLoading ? t('common.savingEllipsis') : t('addCourse.buttons.submit')}
+          </Button>
 
-        {message ? (
-          <Text style={[styles.message, message.includes(t('addCourse.messages.errorWord')) ? styles.errorText : styles.successText]}>
-            {message}
-          </Text>
-        ) : null}
-      </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
     </Provider>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: themeColors.background,
+  },
   container: {
-    padding: 16,
+    padding: 20,
+    paddingBottom: 40,
   },
   heading: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
+    color: themeColors.text,
     marginBottom: 24,
     textAlign: 'center',
   },
   input: {
     marginBottom: 16,
+    backgroundColor: '#fff',
   },
-  imageButton: {
+  dropdown: {
+    height: 56,
+    borderColor: themeColors.border,
+    borderWidth: 1,
+    borderRadius: 4,
+    paddingHorizontal: 14,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    marginBottom: 16,
+  },
+  dropdownText: {
+    fontSize: 16,
+    color: themeColors.text,
+  },
+  imagePicker: {
+    height: 150,
+    borderWidth: 2,
+    borderColor: themeColors.border,
+    borderStyle: 'dashed',
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fafafa',
     marginVertical: 16,
   },
-  imageUriText: {
-    textAlign: 'center',
-    marginBottom: 16,
-    color: '#555',
+  imagePickerText: {
+    marginTop: 8,
+    color: themeColors.primary,
+    fontWeight: '500',
+  },
+  imagePreview: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 6,
   },
   submitButton: {
+    backgroundColor: themeColors.primary,
+    borderRadius: 8,
     marginTop: 16,
   },
-  message: {
+  submitButtonText: {
+    color: themeColors.textLight,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  messageContainer: {
     marginTop: 16,
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  errorContainer: {
+    backgroundColor: '#f8d7da',
+    borderColor: '#f5c6cb',
+  },
+  successContainer: {
+    backgroundColor: '#d4edda',
+    borderColor: '#c3e6cb',
+  },
+  messageText: {
     textAlign: 'center',
     fontSize: 14,
-  },
-  errorText: {
-    color: 'red',
-  },
-  successText: {
-    color: 'green',
+    fontWeight: '500',
+    color: themeColors.text,
   },
 });
 

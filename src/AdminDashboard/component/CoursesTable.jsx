@@ -1,9 +1,136 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useEffect } from "react";
-import { View, FlatList, ActivityIndicator, Text } from "react-native";
+import {
+  View,
+  FlatList,
+  ActivityIndicator,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+} from "react-native";
 import { db } from "../../lib/firebase";
 import {
   collection,
-  getDocs,
+  onSnapshot,
   orderBy,
   query,
   where,
@@ -13,7 +140,7 @@ import {
 import { getAuth } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 import CourseRow from "./CourseRow";
-import { useTheme } from 'react-native-paper';
+import { useTheme } from "react-native-paper";
 
 export default function CoursesTable() {
   const { t } = useTranslation();
@@ -48,39 +175,38 @@ export default function CoursesTable() {
     fetchRole();
   }, []);
 
-  useEffect(() => {
+ useEffect(() => {
     if (!role || !user) return;
 
-    const fetchCourses = async () => {
-      try {
-        const coursesCollection = collection(db, "courses");
-        let q;
+    const coursesCollection = collection(db, "courses");
+    let q;
 
-        if (role === "admin") {
-          q = query(
-            coursesCollection,
-            where("ownerUid", "==", user.uid),
-            orderBy("createdAt", "desc")
-          );
-        } else {
-          q = query(coursesCollection, orderBy("createdAt", "desc"));
-        }
+    if (role === "admin") {
+      q = query(
+        coursesCollection,
+        where("ownerUid", "==", user.uid),
+        orderBy("createdAt", "desc")
+      );
+    } else {
+      q = query(coursesCollection, orderBy("createdAt", "desc"));
+    }
+    
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const coursesData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setCourses(coursesData);
+      setIsLoading(false);
+    }, (error) => {
+      console.error("Error fetching courses in real-time: ", error);
+      setIsLoading(false);
+    });
 
-        const querySnapshot = await getDocs(q);
-        const coursesData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+    
+    
+    return () => unsubscribe();
 
-        setCourses(coursesData);
-      } catch (error) {
-        console.error("Error fetching courses: ", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchCourses();
   }, [role, user]);
 
   const handleDeleteCourse = (idToDelete) => {
@@ -89,7 +215,7 @@ export default function CoursesTable() {
 
   if (isLoading) {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center", padding: 20 }}>
+      <View style={styles.centeredContainer}>
         <ActivityIndicator size="large" color={colors.primary} />
         <Text>{t("myCourses.loading")}</Text>
       </View>
@@ -98,19 +224,40 @@ export default function CoursesTable() {
 
   if (courses.length === 0) {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center", padding: 20 }}>
-        <Text style={{ color: colors.disabled }}>{t("coursesTable.empty")}</Text>
+      <View style={styles.centeredContainer}>
+        <Text style={{ color: colors.onSurfaceDisabled }}>
+          {t("coursesTable.empty")}
+        </Text>
       </View>
     );
   }
 
   return (
-    <View style={{ backgroundColor: colors.surface, margin: 6, padding: 6, borderRadius: 8, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10 }}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={courses}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <CourseRow course={item} onDelete={handleDeleteCourse} />}
+        renderItem={({ item }) => (
+          <CourseRow course={item} onDelete={handleDeleteCourse} />
+        )}
+        contentContainerStyle={styles.listContentContainer}
       />
-    </View>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  centeredContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
+  container: {
+    flex: 1,
+  },
+  listContentContainer: {
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+  },
+});

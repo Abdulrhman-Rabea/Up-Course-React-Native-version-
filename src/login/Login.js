@@ -63,9 +63,9 @@ function Login() {
       const userDoc = await getDoc(doc(getFirestore(), 'users', user.uid));
       const userData = userDoc.data();
       if (userData.role === 'admin') {
-        navigation.navigate('AdminPage');
+        navigation.navigate('Admin');
       } else {
-        navigation.navigate('HomeScreen');
+        navigation.navigate('Drawer');
       }
     } catch (error) {
       showMessage({ text: 'Login failed', type: 'error' });
