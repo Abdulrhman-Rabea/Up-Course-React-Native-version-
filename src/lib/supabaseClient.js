@@ -9,7 +9,7 @@
 
 // supabaseClient.js
 
-import 'react-native-url-polyfill/auto'   // يحل مشاكل URL في RN
+import 'react-native-url-polyfill/auto'   
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createClient } from '@supabase/supabase-js'
 
@@ -19,9 +19,9 @@ const supabaseKey =
 
 export const supabase = createClient(supabaseUrl, supabaseKey, {
   auth: {
-    storage: AsyncStorage,        // بديل localStorage
-    autoRefreshToken: true,       // يجدد التوكن تلقائي
-    persistSession: true,         // يحفظ الجلسة
-    detectSessionInUrl: false,    // في RN مفيش URL زي الويب
+    storage: AsyncStorage,      
+    autoRefreshToken: true,     
+    persistSession: true,        
+    detectSessionInUrl: false,    
   },
 })

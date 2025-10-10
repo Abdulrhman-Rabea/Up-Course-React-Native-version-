@@ -17,7 +17,6 @@ export async function signUpWithEmail({ email, password, displayName }) {
         console.warn("Failed to send verification email:", e);
     }
 
-    // --- FIX: Return the entire credential object, not just the user part ---
     return credintial; 
 }
 

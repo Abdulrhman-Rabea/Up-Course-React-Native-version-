@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, Alert } from 'react-native';
 import { TextInput, Button, Text, HelperText, Menu, Provider } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
-import { supabase } from '../lib/supabaseClient'; 
-import { db } from '../lib/firebase';
+import { supabase } from '../../lib/supabaseClient';
+import { db } from '../../lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
@@ -52,7 +52,8 @@ function AddCoursePage() {
     setMessage('');
 
     try {
-  
+
+
       const response = await fetch(imageUri);
       const blob = await response.blob();
       const filePath = `public/${Date.now()}-course-image.jpg`;
