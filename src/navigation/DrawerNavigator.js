@@ -1,18 +1,16 @@
-import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
 
-import Login from "../login/Login";
-import Registration from "../Registration/Registration";
-import AdminPage from "../AdminDashboard/Home";
-import AddCoursePage from "../AdminDashboard/AddPage";
+
 import AboutScreen from '../screens/CoursesScreen';
 import HomeScreen from '../screens/HomeScreen';
+import AdminPage from "../AdminDashboard/pages/Home";
+import AddCoursePage from "../AdminDashboard/pages/AddPage";
 
 const Drawer = createDrawerNavigator();
 
-export default function DrawerNavigator() {
+function DrawerNavigator() {
   return (
+
     <Drawer.Navigator initialRouteName="Home">
       {/* <Drawer.Screen name="Login" component={Login} options={{ headerShown: false }} /> */}
       <Drawer.Screen name="Home" component={HomeScreen} />
@@ -25,3 +23,15 @@ export default function DrawerNavigator() {
   );
 
 }
+
+function AdminNavigator(){
+    return (
+        <Drawer.Navigator initialRouteName="AdminDashboard" >
+            <Drawer.Screen name="AdminDashboard" component={AdminPage}   />
+            <Drawer.Screen name="AddPage" component={AddCoursePage} />
+        </Drawer.Navigator>
+    );
+}
+
+
+export {DrawerNavigator, AdminNavigator};

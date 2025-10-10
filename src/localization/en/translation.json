@@ -444,6 +444,10 @@
 			"description": "Description",
 			"actions": "Actions"
 		},
+		"Go to course": "Edit course",
+		"Remove": "Remove",
+		"Confirm Deletion": "Confirm Deletion",
+		"Are you sure you want to remove this course?": "Are you sure you want to remove this course?",
 		"empty": "Don't have any course yet."
 	},
 	"courseRow": {

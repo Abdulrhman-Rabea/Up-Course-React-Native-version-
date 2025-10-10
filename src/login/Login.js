@@ -13,7 +13,6 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 
-// --- Assuming these imports are correct ---
 import {
   signInWithEmail,
   signInWithGoogle,
@@ -21,13 +20,10 @@ import {
   mapLoginError,
 } from '../lib/login';
 
-// --- Login Component ---
 function Login() {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  // const db = getFirestore();
 
-  // --- All your original state and logic is preserved ---
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
@@ -36,7 +32,6 @@ function Login() {
   const [message, setMessage] = useState({ visible: false, text: '', type: 'info' });
   const timerRef = useRef(null);
 
-  // --- All your original functions are preserved ---
   const showMessage = ({ text, type = 'info', duration = 4000 }) => {
     setMessage({ visible: true, text, type });
     if (duration) {
@@ -68,7 +63,7 @@ function Login() {
       const userDoc = await getDoc(doc(getFirestore(), 'users', user.uid));
       const userData = userDoc.data();
       if (userData.role === 'admin') {
-        navigation.navigate('AdminPage');
+        navigation.navigate('Admin');
       } else {
         navigation.navigate('Drawer');
       }
@@ -77,8 +72,8 @@ function Login() {
     }
   };
   
-  const handleGoogle = async () => { /* Your original logic */ };
-  const onForgotPassword = async () => { /* Your original logic */ };
+  const handleGoogle = async () => {  };
+  const onForgotPassword = async () => {  };
   const togglePasswordVisibility = () => setShowPassword((s) => !s);
 
   return (
@@ -167,7 +162,6 @@ function Login() {
   );
 }
 
-// --- STYLES: Using the same modern theme ---
 const styles = StyleSheet.create({
   flex: { flex: 1 },
   container: {

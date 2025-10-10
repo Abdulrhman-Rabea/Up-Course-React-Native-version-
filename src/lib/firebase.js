@@ -16,10 +16,8 @@ import {
   limit
 } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
-  // --- استخدم هذا المفتاح الصحيح ---
   apiKey: "AIzaSyDUgH1CH5o6vHo5wMgeUgHAKKIUWgmVtao",
   
   authDomain: "e-learning-35aa2.firebaseapp.com",
@@ -29,7 +27,6 @@ const firebaseConfig = {
   appId: "1:964443659733:web:40b05999b373cd3315315c"
 };
 
-// Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
