@@ -70,7 +70,7 @@ function Login() {
       if (userData.role === 'admin') {
         navigation.navigate('AdminPage');
       } else {
-        navigation.navigate('Home');
+        navigation.navigate('Drawer');
       }
     } catch (error) {
       showMessage({ text: 'Login failed', type: 'error' });

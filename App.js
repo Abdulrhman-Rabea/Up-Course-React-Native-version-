@@ -7,12 +7,13 @@ import './src/localization/i18n';
 
 import { NavigationContainer } from '@react-navigation/native';
 import DrawerNavigator from './src/navigation/DrawerNavigator';
+import StackNavigator from './src/navigation/StackNavigator';
 
 export default function App() {
 
   return (
     <NavigationContainer>
-      <DrawerNavigator />
+      <StackNavigator />
     </NavigationContainer>
 
   );
