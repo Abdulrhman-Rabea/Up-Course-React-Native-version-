@@ -100,6 +100,7 @@ function Login() {
             mode="outlined"
             keyboardType="email-address"
             autoCapitalize="none"
+            textColor='black'
           />
           {!!errors.emailErr && <Text style={styles.error}>{errors.emailErr}</Text>}
 
@@ -111,6 +112,7 @@ function Login() {
             secureTextEntry={!showPassword}
             mode="outlined"
             right={<TextInput.Icon icon={showPassword ? 'eye-off' : 'eye'} onPress={togglePasswordVisibility} />}
+            textColor='black'
           />
           {!!errors.passErr && <Text style={styles.error}>{errors.passErr}</Text>}
           

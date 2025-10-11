@@ -3,6 +3,7 @@ import {
     createUserWithEmailAndPassword,
     updateProfile,
     sendEmailVerification,
+    signOut,
 } from "firebase/auth";
 
 export async function signUpWithEmail({ email, password, displayName }) {
@@ -17,7 +18,18 @@ export async function signUpWithEmail({ email, password, displayName }) {
         console.warn("Failed to send verification email:", e);
     }
 
-    return credintial; 
+    return credintial;
+}
+
+export async function logout() {
+    console.log("Logout: Starting logout process");
+    try {
+        await signOut(auth);
+        console.log("Logout: Successfully signed out");
+    } catch (error) {
+        console.error("Logout: Failed to sign out", error);
+        throw error;
+    }
 }
 
 
