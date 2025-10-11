@@ -13,11 +13,11 @@ import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
 
 const themeColors = {
-  primary: "#FF6F00", 
-  secondary: "#F0F0F0", 
-  text: "#333333", 
-  textLight: "#FFFFFF", 
-  border: "#DDDDDD", 
+  primary: "#FF6F00",
+  secondary: "#F0F0F0",
+  text: "#333333",
+  textLight: "#FFFFFF",
+  border: "#DDDDDD",
 };
 
 export default function CourseRow({ course, onDelete }) {
@@ -37,10 +37,10 @@ export default function CourseRow({ course, onDelete }) {
   const handleGoToCourse = () => {
     navigation.navigate("Edit", { courseId: course.id });
   };
-  
+
   return (
     <View style={styles.card}>
-     
+
       <ImageBackground
         source={{ uri: course.imageUrl || "https://via.placeholder.com/400x200" }}
         style={styles.imageBackground}
@@ -51,19 +51,19 @@ export default function CourseRow({ course, onDelete }) {
         </View>
       </ImageBackground>
 
-   
+
       <View style={styles.contentContainer}>
-       
+
         {course.category && (
-           <View style={styles.categoryContainer}>
-             <Text style={styles.categoryText}>{course.category}</Text>
-           </View>
+          <View style={styles.categoryContainer}>
+            <Text style={styles.categoryText}>{course.category}</Text>
+          </View>
         )}
-       
-     
+
+
         <Text style={styles.title}>{course.title}</Text>
 
-        
+
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.primaryButton} onPress={handleGoToCourse}>
             <Text style={styles.primaryButtonText}>{t("coursesTable.Go to course")}</Text>
@@ -82,9 +82,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 12,
     marginBottom: 20,
-    overflow: "hidden", 
-    elevation: 3, 
-    shadowColor: "#000", 
+    overflow: "hidden",
+    elevation: 3,
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: "center",
-    flex: 1, 
+    flex: 1,
     marginRight: 8,
   },
   primaryButtonText: {
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderColor: themeColors.border,
-    flex: 1, 
+    flex: 1,
     marginLeft: 8,
   },
   secondaryButtonText: {
