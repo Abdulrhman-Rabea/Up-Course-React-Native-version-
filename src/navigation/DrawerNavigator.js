@@ -5,6 +5,7 @@ import AboutScreen from '../screens/CoursesScreen';
 import HomeScreen from '../screens/HomeScreen';
 import AdminPage from "../AdminDashboard/pages/Home";
 import AddCoursePage from "../AdminDashboard/pages/AddPage";
+import AboutUsScreen from "../screens/AboutUsScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -17,7 +18,7 @@ function DrawerNavigator() {
       <Drawer.Screen name="Courses" component={AboutScreen} />
       <Drawer.Screen name="My Courses" component={AboutScreen} />
       <Drawer.Screen name="Wishlist" component={AboutScreen} />
-      <Drawer.Screen name="About" component={AboutScreen} />
+      <Drawer.Screen name="About Us" component={AboutUsScreen} />
       <Drawer.Screen name="Contact" component={AboutScreen} />
     </Drawer.Navigator>
   );
