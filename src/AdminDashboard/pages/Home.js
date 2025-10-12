@@ -1,4 +1,5 @@
-import { SafeAreaView, ScrollView, View } from 'react-native';
+// AdminPage.jsx
+import { SafeAreaView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Header from '../component/Header';
 import CoursesTable from '../component/CoursesTable';
@@ -15,18 +16,12 @@ export default function AdminPage() {
         paddingBottom: insets.bottom,
       }}
     >
-
       <Header />
-
-      <ScrollView
-        contentContainerStyle={{
-          padding: 16,
-        }}
-      >
-        <View style={{ flex: 1 }}>
-          <CoursesTable />
-        </View>
-      </ScrollView>
+      <View style={{ flex: 1 }}>
+        <CoursesTable
+          contentContainerStyle={{ padding: 16 }}
+        />
+      </View>
     </SafeAreaView>
   );
 }

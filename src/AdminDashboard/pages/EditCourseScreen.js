@@ -33,7 +33,7 @@ export default function EditCourseScreen() {
         setIsLoading(false);
         return;
       }
-      const ref = doc(db, 'courses', String(courseId)); // تأكد إنه String
+      const ref = doc(db, 'courses', String(courseId)); 
       console.log('Doc path:', `courses/${courseId}`);
 
       const snap = await getDoc(ref);
@@ -112,6 +112,7 @@ export default function EditCourseScreen() {
             mode="outlined"
             style={styles.input}
             onChangeText={(text) => handleChange('title', text)}
+            textColor='black'
           />
 
           <TextInput
@@ -120,6 +121,7 @@ export default function EditCourseScreen() {
             mode="outlined"
             style={styles.input}
             onChangeText={(text) => handleChange('playlistId', text)}
+            textColor='black'
           />
 
           <TextInput
@@ -130,6 +132,7 @@ export default function EditCourseScreen() {
             numberOfLines={4}
             style={styles.input}
             onChangeText={(text) => handleChange('description', text)}
+            textColor='black'
           />
 
           <TextInput
@@ -139,11 +142,13 @@ export default function EditCourseScreen() {
             keyboardType="numeric"
             style={styles.input}
             onChangeText={(text) => handleChange('price', text)}
+            textColor='black'
           />
 
           <Text style={styles.pickerLabel}>{t('editCourse.fields.category')}</Text>
           <View style={styles.pickerContainer}>
             <Picker
+              style={styles.picker}
               selectedValue={courseData.category}
               onValueChange={(itemValue) => handleChange('category', itemValue)}
             >
@@ -185,6 +190,9 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 10,
     elevation: 3,
+    color: '#fff',
+    backgroundColor: '#fff',
+    padding: 20,
   },
   title: {
     textAlign: 'center',
@@ -194,6 +202,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 15,
+    backgroundColor: '#fff',
   },
   pickerLabel: {
     fontSize: 16,
@@ -206,6 +215,14 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 8,
     marginBottom: 20,
+   
+  },
+  picker: {
+    height: 50,
+    width: '100%',
+    color: '#333',
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
   },
   button: {
     backgroundColor: '#f97316',
