@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 
 export default function CourseStack() {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="CoursesList">
             <Stack.Screen
                 name="CoursesList"
                 component={CoursesScreen}
