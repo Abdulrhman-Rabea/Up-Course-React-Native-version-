@@ -11,17 +11,29 @@ export default function Header() {
   const { colors } = useTheme();
 
   const handleLogout = () => {
-      logout()
-      
-      .then(() => {
-        console.log("Logout successful");
-        Alert.alert(t("success"), t("logout.success"));
-
-        navigation.navigate("Login");
-      })
-      .catch((error) => {
-        console.error("Logout failed:", error);
-      });
+    Alert.alert(
+      t("logout.confirm"),
+      t("logout.message"),
+      [
+        {
+          text: t("cancel"),
+          style: "cancel"
+        },
+        {
+          text: t("ok"),
+          onPress: () => {
+            logout()
+              .then(() => {
+                navigation.navigate("Login");
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+             
+          }
+        }
+      ]
+    );
   };
 
   return (

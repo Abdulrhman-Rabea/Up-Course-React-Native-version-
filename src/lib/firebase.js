@@ -1,11 +1,17 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+// src/lib/firebase.js
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { Platform } from "react-native";
+import {
+  getAuth,
+  getReactNativePersistence,
+  initializeAuth,
+} from "firebase/auth";
 import {
   getFirestore,
   collection,
   getDocs,
-  getDoc,
   doc,
+  getDoc,
   updateDoc,
   deleteDoc,
   setDoc,
@@ -15,21 +21,31 @@ import {
   orderBy,
   limit
 } from "firebase/firestore";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDUgH1CH5o6vHo5wMgeUgHAKKIUWgmVtao",
-  
   authDomain: "e-learning-35aa2.firebaseapp.com",
   projectId: "e-learning-35aa2",
   storageBucket: "e-learning-35aa2.appspot.com",
   messagingSenderId: "964443659733",
-  appId: "1:964443659733:web:40b05999b373cd3315315c"
+  appId: "1:964443659733:web:40b05999b373cd3315315c",
 };
 
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+
+const auth =
+  Platform.OS === "web"
+    ? getAuth(app)
+    : initializeAuth(app, {
+      persistence: getReactNativePersistence(AsyncStorage),
+    });
+
+const db = getFirestore(app);
+
+export { app, auth, db };
+
 
 // =======================================================
 // CRUD operations
@@ -62,11 +78,6 @@ export async function deleteData(colName, id) {
   await deleteDoc(docRef);
 }
 
-// Get current user
-export function getCurrentUser() {
-  return auth.currentUser;
-}
-
 // Enroll course for user
 export async function enrollCourseForUser(uid, enrolledCourse) {
   const userRef = doc(db, "users", uid);
@@ -89,9 +100,10 @@ export async function enrollCourseForUser(uid, enrolledCourse) {
 
 // Get user enrolled courses
 export async function getUserEnrolledCourses(uid) {
-  const userRef = doc(db, "users", uid);
-  const snap = await getDoc(userRef);
-  return snap.exists() ? snap.data().enrolledCourses || [] : [];
+  if (!uid) return [];
+  const coursesRef = collection(db, "users", uid, "enrolledCourses");
+  const snapshot = await getDocs(coursesRef);
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 }
 
 // Ensure user doc exists

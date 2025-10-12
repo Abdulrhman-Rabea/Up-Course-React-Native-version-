@@ -3,13 +3,14 @@ import { View, ScrollView, StyleSheet, Alert, TouchableOpacity, Image } from 're
 import { TextInput, Button, Text, Menu, Provider, Icon } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from '../../lib/supabaseClient';
-import { db } from '../../lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { auth, db } from '../../lib/firebase';
+
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import { decode } from 'base64-arraybuffer';
 const themeColors = {
   primary: "#FF6F00",
   secondary: "#F0F0F0",
@@ -35,6 +36,7 @@ function AddCoursePage() {
   const [category, setCategory] = useState('');
   const [menuVisible, setMenuVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [imageBase64, setImageBase64] = useState(null);
   const [message, setMessage] = useState('');
 
   const pickImage = async () => {
@@ -47,10 +49,12 @@ function AddCoursePage() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 0.7,
+      base64: true, 
     });
 
     if (!result.canceled) {
       setImageUri(result.assets[0].uri);
+      setImageBase64(result.assets[0].base64);
     }
   };
 
@@ -64,15 +68,32 @@ function AddCoursePage() {
     setMessage('');
 
     try {
-      const response = await fetch(imageUri);
-      const blob = await response.blob();
-      const filePath = `public/${Date.now()}-course-image.jpg`;
+      
+      const arrayBuffer = decode(imageBase64);
 
-      const { error: uploadError } = await supabase.storage.from('images').upload(filePath, blob);
+      
+      const filePath = `public/${Date.now()}-course-image.jpg`;
+      const contentType = 'image/jpeg';
+
+      
+      const { error: uploadError } = await supabase
+        .storage
+        .from('images')
+        .upload(filePath, arrayBuffer, { contentType, upsert: false });
+
       if (uploadError) throw uploadError;
 
-      const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(filePath);
+      
+      const { data: pub } = supabase.storage.from('images').getPublicUrl(filePath);
+      const publicUrl = pub?.publicUrl;
 
+      
+      const user = auth.currentUser;
+      if (!user) {
+        throw new Error('User not authenticated');
+      }
+
+      
       await addDoc(collection(db, 'courses'), {
         ownerUid: user.uid,
         ownerEmail: user.email ?? null,
@@ -92,6 +113,7 @@ function AddCoursePage() {
       setDescription('');
       setPrice('');
       setImageUri(null);
+      setImageBase64(null);
       setCategory('');
       setMessage('');
       setTimeout(() => navigation.goBack(), 2000);
@@ -99,8 +121,9 @@ function AddCoursePage() {
       setMessage(`${t('common.errorWord')}: ${error.message}`);
       setIsLoading(false);
     }
+
   };
-  
+
   const categories = ['Programming', 'Graphic Design', 'Social Media', 'Marketing', 'Ui/UX'];
   const categoryTranslations = {
     'Programming': t('addCourse.category.programming'),
@@ -194,11 +217,11 @@ function AddCoursePage() {
             )}
           </TouchableOpacity>
 
-           {message && (
-             <View style={[styles.messageContainer, message.includes(t('common.errorWord')) ? styles.errorContainer : styles.successContainer]}>
-                <Text style={styles.messageText}>{message}</Text>
-             </View>
-           )}
+          {message && (
+            <View style={[styles.messageContainer, message.includes(t('common.errorWord')) ? styles.errorContainer : styles.successContainer]}>
+              <Text style={styles.messageText}>{message}</Text>
+            </View>
+          )}
 
           <Button
             mode="contained"
