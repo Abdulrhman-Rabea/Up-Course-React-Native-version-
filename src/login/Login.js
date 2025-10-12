@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -9,16 +9,17 @@ import {
 } from 'react-native';
 import { Text, TextInput, Button, Snackbar, Switch } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
+import * as Google from 'expo-auth-session/providers/google';
 import { useTranslation } from 'react-i18next';
 
 import {
   signInWithEmail,
   signInWithGoogle,
-  resetPassword,
   mapLoginError,
 } from '../lib/login';
+import { auth } from '../lib/firebase';
 
 function Login() {
   const { t } = useTranslation();
@@ -32,6 +33,14 @@ function Login() {
   const [message, setMessage] = useState({ visible: false, text: '', type: 'info' });
   const timerRef = useRef(null);
 
+  // For Native Google Sign-In (Android/iOS)
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    // IMPORTANT: Replace with your own client IDs from Google Cloud Console
+    iosClientId: 'YOUR_IOS_CLIENT_ID.apps.googleusercontent.com',
+    androidClientId: 'YOUR_ANDROID_CLIENT_ID.apps.googleusercontent.com',
+    webClientId: 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com', // Also used by expo-auth-session
+  });
+
   const showMessage = ({ text, type = 'info', duration = 4000 }) => {
     setMessage({ visible: true, text, type });
     if (duration) {
@@ -41,7 +50,7 @@ function Login() {
     }
   };
   const onDismissSnack = () => setMessage({ visible: false, text: '', type: 'info' });
-  
+
   const emailRegex = /\S+@\S+\.\S+/;
   const passRegex = /^.{6,}$/;
 
@@ -63,7 +72,7 @@ function Login() {
       const userDoc = await getDoc(doc(getFirestore(), 'users', user.uid));
       const userData = userDoc.data();
       if (userData.role === 'admin') {
-        navigation.navigate('Admin');
+        navigation.navigate('AdminPage');
       } else {
         navigation.navigate('Drawer');
       }
@@ -71,9 +80,51 @@ function Login() {
       showMessage({ text: 'Login failed', type: 'error' });
     }
   };
-  
-  const handleGoogle = async () => {  };
-  const onForgotPassword = async () => {  };
+
+  // This effect handles the response from native Google Sign-In
+  useEffect(() => {
+    if (Platform.OS === 'web' || response?.type !== 'success') return;
+
+    const { id_token } = response.params;
+    const credential = GoogleAuthProvider.credential(id_token);
+    signInWithCredential(auth, credential)
+      .then(async (result) => {
+        const user = result.user;
+        const userDoc = await getDoc(doc(getFirestore(), 'users', user.uid));
+        if (userDoc.exists() && userDoc.data().role === 'admin') {
+          navigation.navigate('AdminPage');
+        } else {
+          navigation.navigate('Drawer');
+        }
+      })
+      .catch((error) => {
+        showMessage({ text: mapLoginError(error.code), type: 'error' });
+      });
+  }, [response]);
+
+  const handleGoogle = async () => {
+    if (Platform.OS === 'web') {
+      // Web Google Sign-In flow
+      try {
+        const user = await signInWithGoogle();
+        const userDoc = await getDoc(doc(getFirestore(), 'users', user.uid));
+        if (userDoc.exists() && userDoc.data().role === 'admin') {
+          navigation.navigate('AdminPage');
+        } else {
+          navigation.navigate('Drawer');
+        }
+      } catch (error) {
+        showMessage({ text: mapLoginError(error.code), type: 'error' });
+      }
+    } else {
+      // Native Google Sign-In flow (Android/iOS)
+      if (request) {
+        promptAsync();
+      }
+    }
+  };
+
+  const onForgotPassword = async () => { };
   const togglePasswordVisibility = () => setShowPassword((s) => !s);
 
   return (
@@ -91,7 +142,7 @@ function Login() {
         <View style={styles.card}>
           <Text style={styles.title}>{t('auth.login.title', 'Login')}</Text>
           <Text style={styles.subtitle}>{t('auth.login.welcome', 'Welcome back!')}</Text>
-          
+
           <TextInput
             label={t('auth.login.email', 'Email')}
             value={email}
@@ -115,11 +166,11 @@ function Login() {
             textColor='black'
           />
           {!!errors.passErr && <Text style={styles.error}>{errors.passErr}</Text>}
-          
+
           <View style={styles.optionsContainer}>
             <View style={styles.switchContainer}>
-                <Switch value={rememberMe} onValueChange={setRememberMe} color="#F97316" />
-                <Text style={styles.rememberText}>{t('auth.login.remember', 'Remember me')}</Text>
+              <Switch value={rememberMe} onValueChange={setRememberMe} color="#F97316" />
+              <Text style={styles.rememberText}>{t('auth.login.remember', 'Remember me')}</Text>
             </View>
             {/* <Button onPress={onForgotPassword} mode="text" labelStyle={styles.forgotPasswordText}>
                 {t('auth.login.forgot', 'Forgot Password?')}
@@ -147,6 +198,7 @@ function Login() {
             onPress={handleGoogle}
             style={styles.googleButton}
             labelStyle={styles.googleButtonText}
+            disabled={Platform.OS !== 'web' && !request}
             icon="google"
           >
             {t('auth.login.google', 'Sign in with Google')}

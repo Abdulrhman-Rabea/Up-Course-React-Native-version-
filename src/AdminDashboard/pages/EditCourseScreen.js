@@ -215,9 +215,14 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 8,
     marginBottom: 20,
+   
   },
   picker: {
-    height: 40,
+    height: 50,
+    width: '100%',
+    color: '#333',
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
   },
   button: {
     backgroundColor: '#f97316',

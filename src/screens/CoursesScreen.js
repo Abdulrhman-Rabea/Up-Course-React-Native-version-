@@ -9,7 +9,9 @@ import {
 } from 'react-native';
 import CourseCard from '../components/CourseCard';
 import RNPickerSelect from 'react-native-picker-select';
-import { getAllData, enrollCourseForUser, getCurrentUser } from '../lib/firebase';
+import { getAllData, enrollCourseForUser, auth } from '../lib/firebase';
+
+import { useNavigation } from '@react-navigation/native';
 
 export default function CoursesScreen() {
     const [courses, setCourses] = useState([]);
@@ -17,6 +19,7 @@ export default function CoursesScreen() {
     const [search, setSearch] = useState('');
     const [category, setCategory] = useState('All');
     const [loading, setLoading] = useState(true);
+    const navigation = useNavigation();
 
     // Pagination
     const [page, setPage] = useState(1);
@@ -67,14 +70,21 @@ export default function CoursesScreen() {
     const totalPages = Math.ceil(filtered.length / perPage);
 
     async function handleEnroll(course) {
-        const user = getCurrentUser();
+       const user = auth.currentUser
         if (!user) {
             alert('You need to log in first');
             return;
         }
 
+       navigation.navigate("PayPalCheckout", {
+   course: {
+     id: course.id,
+     title: course.title,
+     imageUrl: course.imageUrl || null,
+     price: Number(course.price) || 0, 
+   },
+ });
         await enrollCourseForUser(user.uid, course);
-        alert(`Enrolled in ${course.title}`);
     }
 
     return (
