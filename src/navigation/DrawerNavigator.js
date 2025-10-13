@@ -2,11 +2,14 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerI
 import AboutScreen from '../screens/CoursesScreen';
 import HomeScreen from '../screens/HomeScreen';
 import AboutUsScreen from "../screens/AboutUsScreen";
+import WishlistScreen from "../screens/WishListScreen";
 import ChatbotScreen from "../AdminDashboard/pages/chatbot";
 import { Alert } from 'react-native';
 import { logout } from '../lib/auth';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+
+
 import MyCourses from "../screens/Mycourses";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -24,13 +27,22 @@ const Drawer = createDrawerNavigator();
 function DrawerNavigator() {
   return (
 
-    <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="Chatbot" component={ChatbotScreen} />
-      <Drawer.Screen name="Login" component={Login} />
-      <Drawer.Screen name="Registration" component={Registration} />
+      <Drawer.Navigator
+      initialRouteName="Home"
+      
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+    >
+      {/* <Drawer.Screen name="Login" component={Login} options={{ headerShown: false }} /> */}
       <Drawer.Screen name="Home" component={HomeScreen} />
+
       <Drawer.Screen name="Courses" component={CourseStack} options={{ headerShown: true }} />
-      <Drawer.Screen name="MyCourses" component={MyCoursesScreen} options={{ headerShown: false }} />
+   <Drawer.Screen name="MyCourses" component={MyCoursesScreen} options={{ headerShown: false }} />
+      <Drawer.Screen name="Wishlist" component={WishlistScreen} />
+      {/* <Drawer.Screen name="My Courses" component={MyCourses} /> */}
+      <Drawer.Screen name="About Us" component={AboutUsScreen} />
+      <Drawer.Screen name="Chatbot" component={ChatbotScreen} />
+
+
     </Drawer.Navigator>
   );
 

@@ -1,9 +1,28 @@
 // src/components/CourseCard.js
 import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { addToWishlist, removeFromWishlist } from "../redux/wishlistSlice";
+
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
 export default function CourseCard({ course, onEnroll }) {
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   const dispatch = useDispatch();
+const wishlist = useSelector((state) => state.wishlist.items);
+
+const isWishlisted = wishlist.some((item) => item.id === course.id);
+
+const toggleWishlist = () => {
+    if (isWishlisted) {
+        dispatch(removeFromWishlist(course.id));
+    } else {
+        dispatch(addToWishlist(course));
+    }
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <View
             style={{
@@ -102,10 +121,29 @@ export default function CourseCard({ course, onEnroll }) {
                 </View>
             </View>
 
-            {/* Favorite icon */}
+
+
+
+            {/* Wishlist Icon */}
+         <TouchableOpacity
+                onPress={toggleWishlist}
+                style={{ position: 'absolute', top: 8, right: 8 }}
+            >
+                <FontAwesome
+                    name={isWishlisted ? "heart" : "heart-o"}
+                    size={20}
+                    color={isWishlisted ? "red" : "#555"}
+                />
+        </TouchableOpacity>
+
+
+
+
+            {/* Favorite icon
             <View style={{ position: 'absolute', top: 8, right: 8 }}>
                 <FontAwesome name="heart-o" size={18} color="#555" />
-            </View>
+            </View> */}
+
         </View>
     );
 }

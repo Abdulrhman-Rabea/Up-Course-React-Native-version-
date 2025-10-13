@@ -13,7 +13,7 @@ import HomeScreen from "../screens/HomeScreen";
 import EditCourseScreen from "../AdminDashboard/pages/EditCourseScreen";
 import { AdminNavigator, DrawerNavigator } from "./DrawerNavigator";
 import PayPalCheckoutNative from "../screens/Paypal/checkout";
-import MyCourses from "../screens/Mycourses";
+// import MyCourses from "../screens/Mycourses";
 
 
 function StackNavigator() {
@@ -24,7 +24,7 @@ function StackNavigator() {
       <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
       <Stack.Screen name="Registration" component={Registration} options={{ headerShown: false }} />
       <Stack.Screen name="Courses" component={Courses} options={{ headerShown: false }} />
-      <Stack.Screen name="My Courses" component={MyCourses} options={{ headerShown: false }} />
+      {/* <Stack.Screen name="My Courses" component={MyCourses} options={{ headerShown: false }} /> */}
       <Stack.Screen name="Edit" component={EditCourseScreen} options={{ headerShown: false }} />
       {/* App/Admin screens */}
 
