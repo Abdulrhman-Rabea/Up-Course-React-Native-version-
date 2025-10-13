@@ -6,21 +6,33 @@ import {
     signOut,
 } from "firebase/auth";
 
+/**
+ * Create an account and send a verification email.
+ * @returns {import("firebase/auth").UserCredential}
+ */
 export async function signUpWithEmail({ email, password, displayName }) {
-    const credintial = await createUserWithEmailAndPassword(auth, email, password);
+    // Create the user
+    const credential = await createUserWithEmailAndPassword(auth, email, password);
+
+    // Optionally set displayName
     if (displayName) {
-        await updateProfile(credintial.user, { displayName });
+        await updateProfile(credential.user, { displayName });
     }
 
+    // Try to send a verification email (non-fatal if it fails)
     try {
-        await sendEmailVerification(credintial.user);
+        await sendEmailVerification(credential.user);
     } catch (e) {
         console.warn("Failed to send verification email:", e);
     }
 
-    return credintial;
+    // Return the full credential (fixes previous typo/merge issue)
+    return credential;
 }
 
+/**
+ * Sign out the current user.
+ */
 export async function logout() {
     console.log("Logout: Starting logout process");
     try {
@@ -32,7 +44,9 @@ export async function logout() {
     }
 }
 
-
+/**
+ * Map Firebase auth error codes to user-friendly messages.
+ */
 export function mapAuthError(code) {
     switch (code) {
         case "auth/email-already-in-use":

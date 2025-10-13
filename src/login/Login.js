@@ -75,6 +75,8 @@ function Login() {
         navigation.navigate('AdminPage');
       } else {
         navigation.navigate('Drawer');
+        // navigation.navigate('Home'); take a look here, yaarb
+
       }
     } catch (error) {
       showMessage({ text: 'Login failed', type: 'error' });

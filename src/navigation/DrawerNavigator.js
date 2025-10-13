@@ -8,7 +8,17 @@ import { Alert } from 'react-native';
 import { logout } from '../lib/auth';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-// import MyCourses from "../screens/Mycourses";
+
+
+import MyCourses from "../screens/Mycourses";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+
+import Login from "../login/Login";
+import Registration from "../Registration/Registration";
+import HomeScreen from '../screens/HomeScreen';
+import CourseStack from "./CourseStack";
+import MyCoursesScreen from "../screens/MyCoursesScreen";
 
 
 const Drawer = createDrawerNavigator();
@@ -24,13 +34,14 @@ function DrawerNavigator() {
     >
       {/* <Drawer.Screen name="Login" component={Login} options={{ headerShown: false }} /> */}
       <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Courses" component={AboutScreen} />
 
-      
+      <Drawer.Screen name="Courses" component={CourseStack} options={{ headerShown: true }} />
+   <Drawer.Screen name="MyCourses" component={MyCoursesScreen} options={{ headerShown: false }} />
       <Drawer.Screen name="Wishlist" component={WishlistScreen} />
       {/* <Drawer.Screen name="My Courses" component={MyCourses} /> */}
       <Drawer.Screen name="About Us" component={AboutUsScreen} />
       <Drawer.Screen name="Chatbot" component={ChatbotScreen} />
+
 
     </Drawer.Navigator>
   );
@@ -60,7 +71,7 @@ function CustomDrawerContent(props) {
               .catch((error) => {
                 console.log(error);
               });
-             
+
           }
         }
       ]
@@ -77,4 +88,4 @@ function CustomDrawerContent(props) {
 
 
 
-export {DrawerNavigator, CustomDrawerContent};
+export { DrawerNavigator, CustomDrawerContent };
