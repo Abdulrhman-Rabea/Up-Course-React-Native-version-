@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; CustomModal
 import {
     View,
     Text,
@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import CourseCard from '../components/CourseCard';
 import RNPickerSelect from 'react-native-picker-select';
-import { getAllData, enrollCourseForUser, auth } from '../lib/firebase';
-
+import { getAllData, enrollCourseForUser, auth, getCurrentUser } from '../lib/firebase';
+import CustomModal from '../components/Modal.js'
 import { useNavigation } from '@react-navigation/native';
 
 export default function CoursesScreen() {
@@ -19,7 +19,12 @@ export default function CoursesScreen() {
     const [search, setSearch] = useState('');
     const [category, setCategory] = useState('All');
     const [loading, setLoading] = useState(true);
+
     const navigation = useNavigation();
+
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalData, setModalData] = useState({ title: "", subtitle: "" })
 
     // Pagination
     const [page, setPage] = useState(1);
@@ -70,21 +75,31 @@ export default function CoursesScreen() {
     const totalPages = Math.ceil(filtered.length / perPage);
 
     async function handleEnroll(course) {
-       const user = auth.currentUser
+        const user = auth.currentUser
         if (!user) {
-            alert('You need to log in first');
+            setModalData({
+                title: "Login Required",
+                subtitle: "Please login or create an account to enroll in this course.",
+                primaryLabel: "Login",
+                onPrimaryPress: () => {
+                    setModalVisible(false);
+                    navigation.navigate("Login", { redirectTo: "CourseDetails", courseId: course.id });
+                },
+            });
+            setModalVisible(true);
             return;
         }
 
-       navigation.navigate("PayPalCheckout", {
-   course: {
-     id: course.id,
-     title: course.title,
-     imageUrl: course.imageUrl || null,
-     price: Number(course.price) || 0, 
-   },
- });
+        navigation.navigate("PayPalCheckout", {
+            course: {
+                id: course.id,
+                title: course.title,
+                imageUrl: course.imageUrl || null,
+                price: Number(course.price) || 0,
+            },
+        });
         await enrollCourseForUser(user.uid, course);
+
     }
 
     return (
@@ -177,19 +192,16 @@ export default function CoursesScreen() {
                 <Text style={{ textAlign: 'center', color: '#777' }}>No courses found.</Text>
             ) : (
                 <>
+                    {/* Courses Grid */}
                     <View
                         style={{
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                            justifyContent: 'space-between',
+                            flexDirection: "row",
+                            flexWrap: "wrap",
+                            justifyContent: "space-between",
                         }}
                     >
                         {currentCourses.map((course) => (
-                            <CourseCard
-                                key={course.id}
-                                course={course}
-                                onEnroll={() => handleEnroll(course)}
-                            />
+                            <CourseCard key={course.id} course={course} onEnroll={() => handleEnroll(course)} />
                         ))}
                     </View>
 
@@ -197,9 +209,9 @@ export default function CoursesScreen() {
                     {totalPages > 1 && (
                         <View
                             style={{
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center',
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                alignItems: "center",
                                 marginVertical: 20,
                             }}
                         >
@@ -207,17 +219,17 @@ export default function CoursesScreen() {
                                 disabled={page === 1}
                                 onPress={() => setPage(page - 1)}
                                 style={{
-                                    backgroundColor: page === 1 ? '#ccc' : '#ff9500',
+                                    backgroundColor: page === 1 ? "#ccc" : "#ff9500",
                                     paddingVertical: 8,
                                     paddingHorizontal: 16,
                                     borderRadius: 8,
                                     marginHorizontal: 5,
                                 }}
                             >
-                                <Text style={{ color: '#fff', fontWeight: '600' }}>Prev</Text>
+                                <Text style={{ color: "#fff", fontWeight: "600" }}>Prev</Text>
                             </TouchableOpacity>
 
-                            <Text style={{ fontWeight: '700', color: '#333' }}>
+                            <Text style={{ fontWeight: "700", color: "#333" }}>
                                 {page} / {totalPages}
                             </Text>
 
@@ -225,17 +237,19 @@ export default function CoursesScreen() {
                                 disabled={page === totalPages}
                                 onPress={() => setPage(page + 1)}
                                 style={{
-                                    backgroundColor: page === totalPages ? '#ccc' : '#ff9500',
+                                    backgroundColor: page === totalPages ? "#ccc" : "#ff9500",
                                     paddingVertical: 8,
                                     paddingHorizontal: 16,
                                     borderRadius: 8,
                                     marginHorizontal: 5,
                                 }}
                             >
-                                <Text style={{ color: '#fff', fontWeight: '600' }}>Next</Text>
+                                <Text style={{ color: "#fff", fontWeight: "600" }}>Next</Text>
                             </TouchableOpacity>
                         </View>
                     )}
+
+
                 </>
             )}
         </ScrollView>
